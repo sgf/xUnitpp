@@ -84,7 +84,7 @@ target_include_directories(xunitpp_core
 	PUBLIC ${XUNITPP_ROOT_DIR}/xUnit++
 	PRIVATE ${XUNITPP_ROOT_DIR}/xUnit++/xUnit++)
 if(NOT MSVC)
-	target_link_libraries(xunitpp_core pthread)
+	target_link_libraries(xunitpp_core pthread m stdc++)
 endif()
 xunit_compiler_options(xunitpp_core)
 setup_target_paths(xunitpp_core ${XUNITPP_ROOT_DIR}/bin)
