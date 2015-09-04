@@ -198,7 +198,7 @@ int RunTests(IOutput &output, TestFilterCallback filter, const std::vector<std::
             continue;
         }
 
-        futures.push_back(std::async([&]()
+        futures.push_back(std::async(std::launch::async, [&]()
             {
                 struct CounterGuard
                 {
