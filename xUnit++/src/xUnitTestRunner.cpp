@@ -7,6 +7,7 @@
 #include <random>
 #include <stdexcept>
 #include <vector>
+#include <iterator>
 #include "EventLevel.h"
 #include "ExportApi.h"
 #include "IOutput.h"
