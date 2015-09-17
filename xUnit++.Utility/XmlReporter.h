@@ -1,11 +1,11 @@
 #ifndef XMLREPORTER_H_
 #define XMLREPORTER_H_
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER < 1900)
 # if !defined(_ALLOW_KEYWORD_MACROS)
 #  define _ALLOW_KEYWORD_MACROS
 # endif
-#define noexcept(x)
+# define noexcept(x)
 #endif
 
 #include <map>
