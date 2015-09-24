@@ -39,35 +39,6 @@ function(xunit_compiler_options target)
 	endif()
 endfunction()
 
-function(setup_target_paths Target LibDir)
-	set_target_properties(${Target} PROPERTIES
-		OUTPUT_NAME ${Target}
-		DEBUG_POSTFIX _d
-		RELWITHDEBINFO_POSTFIX _rd
-		MINSIZEREL_POSTFIX _rm
-		RUNTIME_OUTPUT_DIRECTORY ${LibDir}
-		LIBRARY_OUTPUT_DIRECTORY ${LibDir}
-		ARCHIVE_OUTPUT_DIRECTORY ${LibDir}
-		PDB_OUTPUT_DIRECTORY ${LibDir}
-		RUNTIME_OUTPUT_DIRECTORY_DEBUG ${LibDir}
-		LIBRARY_OUTPUT_DIRECTORY_DEBUG ${LibDir}
-		ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${LibDir}
-		PDB_OUTPUT_DIRECTORY_DEBUG ${LibDir}
-		RUNTIME_OUTPUT_DIRECTORY_RELEASE ${LibDir}
-		LIBRARY_OUTPUT_DIRECTORY_RELEASE ${LibDir}
-		ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${LibDir}
-		PDB_OUTPUT_DIRECTORY_RELEASE ${LibDir}
-		RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${LibDir}
-		LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO ${LibDir}
-		ARCHIVE_OUTPUT_DIRECTORY_RELWITHDEBINFO ${LibDir}
-		PDB_OUTPUT_DIRECTORY_RELWITHDEBINFO ${LibDir}
-		RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL ${LibDir}
-		LIBRARY_OUTPUT_DIRECTORY_MINSIZEREL ${LibDir}
-		ARCHIVE_OUTPUT_DIRECTORY_MINSIZEREL ${LibDir}
-		PDB_OUTPUT_DIRECTORY_MINSIZEREL ${LibDir}
-	)
-endfunction()
-
 # Folders
 # -------------------------------------------------------------------------------------------------
 set(XUNITPP_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}")
@@ -87,7 +58,6 @@ if(NOT MSVC)
 	target_link_libraries(xunitpp_core pthread m stdc++)
 endif()
 xunit_compiler_options(xunitpp_core)
-setup_target_paths(xunitpp_core ${XUNITPP_ROOT_DIR}/bin)
 
 # Utility target
 # -------------------------------------------------------------------------------------------------
@@ -100,7 +70,6 @@ add_library(xunitpp_util STATIC ${XUNITPP_SRC_FILES_UTIL})
 target_include_directories(xunitpp_util PUBLIC ${XUNITPP_ROOT_DIR}/xUnit++.Utility)
 target_link_libraries(xunitpp_util xunitpp_core)
 xunit_compiler_options(xunitpp_util)
-setup_target_paths(xunitpp_util ${XUNITPP_ROOT_DIR}/bin)
 
 # Console target
 # -------------------------------------------------------------------------------------------------
@@ -116,5 +85,4 @@ if(UNIX)
 	target_link_libraries(xunitpp_console dl)
 endif()
 xunit_compiler_options(xunitpp_console)
-setup_target_paths(xunitpp_console ${XUNITPP_ROOT_DIR}/bin)
 
