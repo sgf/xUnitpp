@@ -105,7 +105,7 @@ namespace
 
     std::string XmlAttribute(const std::string &name, const std::string &value)
     {
-        return " " + name + "=\"" + value + "\"";
+        return " " + name + "=\"" + XmlEscape(value) + "\"";
     }
 
     std::string XmlAttribute(const std::string &name, const char *value)
