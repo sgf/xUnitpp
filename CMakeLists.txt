@@ -26,9 +26,6 @@ function(xunit_compiler_options target)
 	endif()
 
 	if(MINGW OR CMAKE_COMPILER_IS_GNUCXX OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
-		# Enable C++14 if gcc or clang
-		target_compile_options(${target} PUBLIC "-std=c++14")
-		
 		# Remove __stdcall
 		target_compile_definitions(${target} PUBLIC "__stdcall=")
 
@@ -57,6 +54,7 @@ target_include_directories(xunitpp_core
 if(NOT MSVC)
 	target_link_libraries(xunitpp_core pthread m stdc++)
 endif()
+set_target_properties(xunitpp_core PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
 xunit_compiler_options(xunitpp_core)
 
 # Utility target
@@ -69,6 +67,7 @@ source_group(Source FILES ${XUNITPP_SRC_FILES_UTIL})
 add_library(xunitpp_util STATIC ${XUNITPP_SRC_FILES_UTIL})
 target_include_directories(xunitpp_util PUBLIC ${XUNITPP_ROOT_DIR}/xUnit++.Utility)
 target_link_libraries(xunitpp_util xunitpp_core)
+set_target_properties(xunitpp_util PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
 xunit_compiler_options(xunitpp_util)
 
 # Console target
@@ -84,5 +83,6 @@ target_link_libraries(xunitpp_console xunitpp_core xunitpp_util)
 if(UNIX)
 	target_link_libraries(xunitpp_console dl)
 endif()
+set_target_properties(xunitpp_console PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
 xunit_compiler_options(xunitpp_console)
 
