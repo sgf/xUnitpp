@@ -89,7 +89,7 @@ xUnitFailure::xUnitFailure(const xUnitFailure &other)
 
 xUnitFailure::~xUnitFailure() noexcept(false)
 {
-    if (!--refCount)
+    if (--refCount <= 0)
     {
         delete &refCount;
 
