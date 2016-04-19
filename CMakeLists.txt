@@ -49,7 +49,7 @@ source_group(Source FILES ${XUNITPP_SRC_FILES_CORE})
 # Static library, but ideally should be shared
 add_library(xunitpp_core STATIC ${XUNITPP_SRC_FILES_CORE})
 target_include_directories(xunitpp_core
-	PUBLIC ${XUNITPP_ROOT_DIR}/xUnit++
+	SYSTEM PUBLIC ${XUNITPP_ROOT_DIR}/xUnit++
 	PRIVATE ${XUNITPP_ROOT_DIR}/xUnit++/xUnit++)
 if(NOT MSVC)
 	target_link_libraries(xunitpp_core pthread m stdc++)
@@ -65,7 +65,7 @@ source_group(Source FILES ${XUNITPP_SRC_FILES_UTIL})
 
 # Library
 add_library(xunitpp_util STATIC ${XUNITPP_SRC_FILES_UTIL})
-target_include_directories(xunitpp_util PUBLIC ${XUNITPP_ROOT_DIR}/xUnit++.Utility)
+target_include_directories(xunitpp_util SYSTEM PUBLIC ${XUNITPP_ROOT_DIR}/xUnit++.Utility)
 target_link_libraries(xunitpp_util xunitpp_core)
 set_target_properties(xunitpp_util PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED ON)
 xunit_compiler_options(xunitpp_util)
