@@ -4,6 +4,10 @@
 cmake_minimum_required(VERSION 3.1)
 project(xUnitpp)
 
+set(USE_ASAN 0 CACHE BOOL "Use address sanitizer")
+set(USE_MSAN 0 CACHE BOOL "Use memory sanitizer")
+set(USE_TSAN 0 CACHE BOOL "Use thread sanitizer")
+
 # Helpers
 # -------------------------------------------------------------------------------------------------
 function(globrecurse_c_cpp_sources result folder)
@@ -29,6 +33,18 @@ function(xunit_compiler_options target)
 		# Remove __stdcall
 		target_compile_definitions(${target} PUBLIC "__stdcall=")
 
+		if (USE_ASAN)
+			target_compile_options(${target} PRIVATE "-fsanitize=address")
+			target_link_libraries(${target} PRIVATE "-fsanitize=address")
+		endif()
+		if (USE_MSAN)
+			target_compile_options(${target} PRIVATE "-fsanitize=memory")
+			target_link_libraries(${target} PRIVATE "-fsanitize=memory")
+		endif()
+		if (USE_TSAN)
+			target_compile_options(${target} PRIVATE "-fsanitize=thread")
+			target_link_libraries(${target} PRIVATE "-fsanitize=thread")
+		endif()
 		# On linux 64bit we should use position independent code, as we may get linked in a .so
 		if(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
 			set_target_properties(${target} PROPERTIES POSITION_INDEPENDENT_CODE ON)
