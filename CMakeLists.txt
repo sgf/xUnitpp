@@ -7,6 +7,7 @@ project(xUnitpp)
 set(USE_ASAN 0 CACHE BOOL "Use address sanitizer")
 set(USE_MSAN 0 CACHE BOOL "Use memory sanitizer")
 set(USE_TSAN 0 CACHE BOOL "Use thread sanitizer")
+set(USE_COVERAGE 0 CACHE BOOL "Use code coverage")
 
 # Helpers
 # -------------------------------------------------------------------------------------------------
@@ -44,6 +45,10 @@ function(xunit_compiler_options target)
 		if (USE_TSAN)
 			target_compile_options(${target} PRIVATE "-fsanitize=thread")
 			target_link_libraries(${target} PRIVATE "-fsanitize=thread")
+		endif()
+		if (USE_COVERAGE)
+			target_compile_options(${target} PRIVATE "-coverage")
+			target_link_libraries(${target} PRIVATE "-fprofile-arcs")
 		endif()
 		# On linux 64bit we should use position independent code, as we may get linked in a .so
 		if(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
