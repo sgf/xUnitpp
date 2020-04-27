@@ -187,7 +187,8 @@ int RunTests(IOutput &output, TestFilterCallback filter, const std::vector<std::
     std::vector<std::shared_ptr<xUnitTest>> activeTests;
     std::copy_if(tests.begin(), tests.end(), std::back_inserter(activeTests), [&filter](const std::shared_ptr<xUnitTest> &test) { return filter(test->TestDetails()); });
 
-    std::random_shuffle(activeTests.begin(), activeTests.end());
+    std::default_random_engine defaultEngine;    // default engine.
+    std::shuffle(activeTests.begin(), activeTests.end(), defaultEngine);//replace random_shuffle
 
     std::vector<std::future<void>> futures;
     for (auto &test : activeTests)
